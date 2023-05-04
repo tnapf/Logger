@@ -1,0 +1,35 @@
+{
+  "name": "tnapf/logger",
+  "description": "A simple logger for PHP",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Tnapf\\Logger\\": "src/",
+      "Tests\\Tnapf\\Logger\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Mark Magyar",
+      "email": "hello@mmark.me"
+    },
+    {
+      "name": "Robert Snedeker",
+      "email": "rsnedeker20@gmail.com"
+    }
+  ],
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.7",
+    "phpunit/phpunit": "^10.1"
+  },
+  "scripts": {
+    "cs": "phpcs ./src ./tests --standard=psr12",
+    "csf": "phpcbf ./src ./tests --standard=psr12",
+    "phpunit": "phpunit",
+    "phpunit-coverage": "@php -d xdebug.mode=coverage ./vendor/bin/phpunit --coverage-html .phpunit.cache/cov-html"
+  },
+  "require": {
+    "php": ">=8.1"
+  }
+}
