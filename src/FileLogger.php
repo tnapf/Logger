@@ -13,20 +13,17 @@ class FileLogger extends AbstractLogger
     protected string $logFile;
 
     /**
-     * @param bool $setSafe Set the log file permissions to 0644. Defaults to <strong>true</strong>.
+     * @param int $permissions The permissions to set on the log file. Defaults to 0644.
      * @throws CouldNotCreateResourceException Throws an exception if the log file cannot be found nor created.
      */
-    public function __construct(string $logFile, bool $setSafe = true, $permissions = 0644)
+    public function __construct(string $logFile, $permissions = 0644)
     {
         $this->logFile = $logFile;
         if (!file_exists($logFile) && !touch($logFile)) {
             throw new CouldNotCreateResourceException('Unable to create the log file: ' . $logFile);
         }
-        if ($setSafe) {
-            chmod($logFile, $permissions);
-        }
+        chmod($logFile, $permissions);
     }
-
 
     /**
      * @throws CouldNotWriteResourceException Throws an exception if the log file cannot be written to.
