@@ -2,9 +2,9 @@
 
 namespace Tests\Tnapf\Logger;
 
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 use Tnapf\Logger\MemoryLogger;
-use PHPUnit\Framework\TestCase;
 
 class MemoryLoggerTest extends TestCase
 {
@@ -19,11 +19,11 @@ class MemoryLoggerTest extends TestCase
 
         $this->assertCount(2, $logs);
 
-        $this->assertEquals('Information message', $logs[0]['message']);
-        $this->assertEquals(LogLevel::INFO, $logs[0]['level']);
+        $this->assertSame('Information message', $logs[0]['message']);
+        $this->assertSame(LogLevel::INFO, $logs[0]['level']);
 
-        $this->assertEquals('Error message', $logs[1]['message']);
-        $this->assertEquals(LogLevel::ERROR, $logs[1]['level']);
+        $this->assertSame('Error message', $logs[1]['message']);
+        $this->assertSame(LogLevel::ERROR, $logs[1]['level']);
         $this->assertEquals(['error_code' => 123], $logs[1]['context']);
     }
 

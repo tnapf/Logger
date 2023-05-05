@@ -2,9 +2,10 @@
 
 namespace Tnapf\Logger;
 
+use Psr\Log\AbstractLogger;
 use Stringable;
 
-class MemoryLogger extends \Psr\Log\AbstractLogger
+class MemoryLogger extends AbstractLogger
 {
     protected array $logs = [];
 
