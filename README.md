@@ -41,6 +41,8 @@ emergency(string|Stringable $message, array $context = [])
 
 The `FileLogger` class writes logs to a specified file.
 
+### Usage
+
 ```php
 use Tnapf\Logger\FileLogger;
 
@@ -51,9 +53,17 @@ $logger->debug('This is a debug message');
 $logger->debug('This is a debug message with context', ['foo' => 'bar']);
 ```
 
+### Methods
+
+```php
+__construct(string $logFile, $permissions = 0644)
+```
+
 ## DatabaseLogger
 
 The `DatabaseLogger` class writes logs to a database table using a PDO connection.
+
+### Usage
 
 ```php
 use Tnapf\Logger\DatabaseLogger;
@@ -68,9 +78,17 @@ $logger->info('This is an info message');
 $logger->info('This is an info message with context', ['foo' => 'bar']);
 ```
 
+### Methods
+
+```php
+__construct(PDO $pdo, string $tableName = 'logs')
+```
+
 ## NullLogger
 
 The `NullLogger` class is a no-operation logger that discards log messages.
+
+### Usage
 
 ```php
 use Tnapf\Logger\NullLogger;
@@ -82,6 +100,8 @@ $logger->warning('This log message will be ignored.');
 ## CompositeLogger
 
 The `CompositeLogger` class combines multiple loggers and forwards log messages to all of them.
+
+### Usage
 
 ```php
 use Tnapf\Logger\CompositeLogger;
@@ -99,6 +119,43 @@ $compositeLogger = new CompositeLogger([$fileLogger]);
 $compositeLogger->addLogger($databaseLogger);
 
 $compositeLogger->critical('This message will be logged to both the file and the database.');
+```
+
+### Methods
+
+```php
+__construct(LoggerInterface[] $loggers = [])
+addLogger(LoggerInterface $logger): void
+```
+
+## MemoryLogger
+
+The `MemoryLogger` class stores logs in memory without persisting them to files or outputting them to the command line.
+
+### Usage
+
+```php
+<?php
+
+use Tnapf\Logger\MemoryLogger;
+
+$memoryLogger = new MemoryLogger();
+
+$memoryLogger->info('Information message');
+$memoryLogger->error('Error message', ['error_code' => 123]);
+
+// Get all logs
+$logs = $memoryLogger->getLogs();
+
+// Clear logs
+$memoryLogger->clearLogs();
+```
+
+### Methods
+
+```php
+getLogs(): array
+clearLogs(): void
 ```
 
 # License
