@@ -158,6 +158,29 @@ getLogs(): array
 clearLogs(): void
 ```
 
+## RotatingFileLogger
+
+The `RotatingFileLogger` class writes logs to a specified file and rotates the file when it reaches a certain size or
+age since the last modification.
+
+### Usage
+
+```php
+use Tnapf\Logger\RotatingFileLogger;
+
+$logFile = '/path/to/your/logfile.log';
+$logger = new RotatingFileLogger($logFile);
+
+$logger->debug('This is a debug message');
+$logger->debug('This is a debug message with context', ['foo' => 'bar']);
+```
+
+### Methods
+
+```php
+__construct(string $logFile, int $permissions = 0644, protected int $maxSizeBytes = 10 * 1024 * 1024, protected int $maxAgeSeconds = 7 * 24 * 60 * 60)
+```
+
 ## RedisLogger
 
 The `RedisLogger` class writes logs to a Redis list. It requires the php-redis extension.
@@ -166,9 +189,6 @@ The `RedisLogger` class writes logs to a Redis list. It requires the php-redis e
 
 ```php
 <?php
-
-require_once 'vendor/autoload.php';
-
 use Tnapf\Logger\RedisLogger;
 use Redis;
 
