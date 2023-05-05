@@ -158,6 +158,35 @@ getLogs(): array
 clearLogs(): void
 ```
 
+## RedisLogger
+
+The `RedisLogger` class writes logs to a Redis list. It requires the php-redis extension.
+
+### Usage
+
+```php
+<?php
+
+require_once 'vendor/autoload.php';
+
+use Tnapf\Logger\RedisLogger;
+use Redis;
+
+$redis = new Redis();
+$redis->connect('127.0.0.1', 6379);
+
+$logger = new RedisLogger($redis, 'my_log_key');
+
+$logger->info('This is an info message');
+$logger->error('This is an error message', ['error_code' => 123]);
+```
+
+### Methods
+
+```php
+__construct(Redis $redis, string $key = 'logger')
+```
+
 # License
 
 MIT License
