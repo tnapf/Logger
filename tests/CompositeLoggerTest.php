@@ -209,7 +209,7 @@ class CompositeLoggerTest extends TestCase
     protected function setUp(): void
     {
         $this->testLogFile = sys_get_temp_dir() . '/test_log_file.log';
-        $this->pdo = new PDO('mysql:host=localhost;dbname=tnapf', 'root', '');
+        $this->pdo = new PDO('mysql:host=127.0.0.1;dbname=tnapf', 'root', 'password');
         $this->pdo->exec('
             CREATE TABLE IF NOT EXISTS test_logs (
                 id INT AUTO_INCREMENT PRIMARY KEY,
