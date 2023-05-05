@@ -4,11 +4,10 @@ namespace Tnapf\Logger;
 
 use DateTimeImmutable;
 use PDO;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
+use Psr\Log\AbstractLogger;
 use Stringable;
 
-class DatabaseLogger implements LoggerInterface
+class DatabaseLogger extends AbstractLogger
 {
     protected PDO $pdo;
     protected string $tableName;
@@ -17,11 +16,6 @@ class DatabaseLogger implements LoggerInterface
     {
         $this->pdo = $pdo;
         $this->tableName = $tableName;
-    }
-
-    public function debug(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::DEBUG, $message, $context);
     }
 
     public function log(mixed $level, string|Stringable $message, array $context = []): void
@@ -45,40 +39,5 @@ class DatabaseLogger implements LoggerInterface
             ':message' => $formattedMessage,
             ':created_at' => (new DateTimeImmutable())->format('Y-m-d H:i:s'),
         ]);
-    }
-
-    public function info(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::INFO, $message, $context);
-    }
-
-    public function notice(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::NOTICE, $message, $context);
-    }
-
-    public function warning(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::WARNING, $message, $context);
-    }
-
-    public function error(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::ERROR, $message, $context);
-    }
-
-    public function critical(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::CRITICAL, $message, $context);
-    }
-
-    public function alert(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::ALERT, $message, $context);
-    }
-
-    public function emergency(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::EMERGENCY, $message, $context);
     }
 }

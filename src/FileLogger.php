@@ -3,14 +3,12 @@
 namespace Tnapf\Logger;
 
 use DateTimeImmutable;
-use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
+use Psr\Log\AbstractLogger;
 use Stringable;
 use Tnapf\Logger\Exceptions\CouldNotCreateResourceException;
-use Tnapf\Logger\Exceptions\CouldNotSetResourcePermissionException;
 use Tnapf\Logger\Exceptions\CouldNotWriteResourceException;
 
-class FileLogger implements LoggerInterface
+class FileLogger extends AbstractLogger
 {
     protected string $logFile;
 
@@ -29,13 +27,6 @@ class FileLogger implements LoggerInterface
         }
     }
 
-    /**
-     * @throws CouldNotWriteResourceException
-     */
-    public function debug(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::DEBUG, $message, $context);
-    }
 
     /**
      * @throws CouldNotWriteResourceException Throws an exception if the log file cannot be written to.
@@ -54,61 +45,5 @@ class FileLogger implements LoggerInterface
         $timestamp = $dateTime->format('Y-m-d H:i:s') . '.' . sprintf('%03d', $dateTime->format('v'));
         $contextString = empty($context) ? '' : ' ' . json_encode($context);
         return "[{$timestamp}] {$level}: {$message}{$contextString}" . PHP_EOL;
-    }
-
-    /**
-     * @throws CouldNotWriteResourceException
-     */
-    public function info(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::INFO, $message, $context);
-    }
-
-    /**
-     * @throws CouldNotWriteResourceException
-     */
-    public function notice(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::NOTICE, $message, $context);
-    }
-
-    /**
-     * @throws CouldNotWriteResourceException
-     */
-    public function warning(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::WARNING, $message, $context);
-    }
-
-    /**
-     * @throws CouldNotWriteResourceException
-     */
-    public function error(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::ERROR, $message, $context);
-    }
-
-    /**
-     * @throws CouldNotWriteResourceException
-     */
-    public function critical(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::CRITICAL, $message, $context);
-    }
-
-    /**
-     * @throws CouldNotWriteResourceException
-     */
-    public function alert(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::ALERT, $message, $context);
-    }
-
-    /**
-     * @throws CouldNotWriteResourceException
-     */
-    public function emergency(string|Stringable $message, array $context = []): void
-    {
-        $this->log(LogLevel::EMERGENCY, $message, $context);
     }
 }
