@@ -13,6 +13,9 @@ class CompositeLogger extends AbstractLogger
      */
     private array $loggers;
 
+    /**
+     * @param LoggerInterface[] $loggers
+     */
     public function __construct(array $loggers = [])
     {
         $this->loggers = $loggers;
