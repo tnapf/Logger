@@ -9,13 +9,8 @@ use Stringable;
 
 class DatabaseLogger extends AbstractLogger
 {
-    protected PDO $pdo;
-    protected string $tableName;
-
-    public function __construct(PDO $pdo, string $tableName = 'logs')
+    public function __construct(protected PDO $pdo, protected string $tableName = 'logs')
     {
-        $this->pdo = $pdo;
-        $this->tableName = $tableName;
     }
 
     public function log(mixed $level, string|Stringable $message, array $context = []): void

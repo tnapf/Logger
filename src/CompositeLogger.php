@@ -9,16 +9,10 @@ use Stringable;
 class CompositeLogger extends AbstractLogger
 {
     /**
-     * @var LoggerInterface[]
-     */
-    private array $loggers;
-
-    /**
      * @param LoggerInterface[] $loggers
      */
-    public function __construct(array $loggers = [])
+    public function __construct(private array $loggers = [])
     {
-        $this->loggers = $loggers;
     }
 
     public function addLogger(LoggerInterface $logger): void

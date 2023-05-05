@@ -10,16 +10,11 @@ use Stringable;
 
 class RedisLogger extends AbstractLogger
 {
-    protected Redis $redis;
-    protected string $key;
-
     /**
      * @param string $key The key to use for the Redis list. Defaults to 'logger'.
      */
-    public function __construct(Redis $redis, string $key = 'logger')
+    public function __construct(protected Redis $redis, protected string $key = 'logger')
     {
-        $this->redis = $redis;
-        $this->key = $key;
     }
 
     /**

@@ -10,15 +10,12 @@ use Tnapf\Logger\Exceptions\CouldNotWriteResourceException;
 
 class FileLogger extends AbstractLogger
 {
-    protected string $logFile;
-
     /**
      * @param int $permissions The permissions to set on the log file. Defaults to 0644.
      * @throws CouldNotCreateResourceException if the log file cannot be found nor created.
      */
-    public function __construct(string $logFile, int $permissions = 0644)
+    public function __construct(protected string $logFile, int $permissions = 0644)
     {
-        $this->logFile = $logFile;
         if (!file_exists($logFile) && !touch($logFile)) {
             throw new CouldNotCreateResourceException('Unable to create the log file: ' . $logFile);
         }
