@@ -2,6 +2,8 @@
 
 namespace Tests\Tnapf\Logger;
 
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
 use PDO;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
@@ -12,6 +14,7 @@ use Tnapf\Logger\FileLogger;
 
 class CompositeLoggerTest extends TestCase
 {
+    protected vfsStreamDirectory $root;
     protected string $testLogFile;
     protected PDO $pdo;
 
@@ -208,7 +211,8 @@ class CompositeLoggerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->testLogFile = sys_get_temp_dir() . '/test_log_file.log';
+        $this->root = vfsStream::setup('logs');
+        $this->testLogFile = $this->root->url() . '/test_log_file.log';
         $this->pdo = new PDO('mysql:host=127.0.0.1;dbname=tnapf', 'root', 'password');
         $this->pdo->exec('
             CREATE TABLE IF NOT EXISTS test_logs (
@@ -222,9 +226,6 @@ class CompositeLoggerTest extends TestCase
 
     protected function tearDown(): void
     {
-        if (file_exists($this->testLogFile)) {
-            unlink($this->testLogFile);
-        }
         $this->pdo->exec('DROP TABLE IF EXISTS test_logs');
     }
 }

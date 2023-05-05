@@ -2,6 +2,8 @@
 
 namespace Tests\Tnapf\Logger;
 
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LogLevel;
 use Tnapf\Logger\Exceptions\CouldNotCreateResourceException;
@@ -10,6 +12,7 @@ use Tnapf\Logger\FileLogger;
 
 class FileLoggerTest extends TestCase
 {
+    protected vfsStreamDirectory $root;
     protected string $testLogFile;
 
     public function testDebug(): void
@@ -230,14 +233,7 @@ class FileLoggerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->testLogFile = sys_get_temp_dir() . '/test_log_file.log';
-    }
-
-    protected function tearDown(): void
-    {
-        if (file_exists($this->testLogFile)) {
-            chmod($this->testLogFile, 0644);
-            unlink($this->testLogFile);
-        }
+        $this->root = vfsStream::setup('logs');
+        $this->testLogFile = $this->root->url() . '/test_log_file.log';
     }
 }
