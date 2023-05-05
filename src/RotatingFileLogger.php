@@ -12,7 +12,7 @@ class RotatingFileLogger extends FileLogger
     /**
      * @param int $maxSizeBytes 10 MB by default
      * @param int $maxAgeSeconds 7 days by default
-     * @throws CouldNotCreateResourceException
+     * @throws CouldNotCreateResourceException if the log file cannot be created.
      */
     public function __construct(
         string $logFile,
@@ -24,8 +24,8 @@ class RotatingFileLogger extends FileLogger
     }
 
     /**
-     * @throws CouldNotWriteResourceException Throws an exception if the log file cannot be created.
-     * @throws FileOperationException Throws an exception if the archive file cannot be renamed.
+     * @throws CouldNotWriteResourceException if the log file cannot be created.
+     * @throws FileOperationException if the archive file cannot be renamed.
      */
     public function log(mixed $level, string|Stringable $message, array $context = []): void
     {
@@ -34,8 +34,8 @@ class RotatingFileLogger extends FileLogger
     }
 
     /**
-     * @throws CouldNotWriteResourceException Throws an exception if the log file cannot be created.
-     * @throws FileOperationException Throws an exception if the archive file cannot be renamed.
+     * @throws CouldNotWriteResourceException if the log file cannot be created.
+     * @throws FileOperationException if the archive file cannot be renamed.
      */
     protected function rotateLogsIfNeeded(): void
     {
@@ -45,7 +45,7 @@ class RotatingFileLogger extends FileLogger
     }
 
     /**
-     * @throws FileOperationException Throws an exception if the file can't be opened or the size cannot be retrieved.
+     * @throws FileOperationException if the file can't be opened or the size cannot be retrieved.
      */
     protected function shouldRotateBySize(): bool
     {
@@ -63,7 +63,7 @@ class RotatingFileLogger extends FileLogger
     }
 
     /**
-     * @throws FileOperationException Throws an exception if the file modification time cannot be retrieved.
+     * @throws FileOperationException if the file modification time cannot be retrieved.
      */
     protected function shouldRotateByAge(): bool
     {
@@ -78,7 +78,7 @@ class RotatingFileLogger extends FileLogger
     }
 
     /**
-     * @throws CouldNotWriteResourceException Throws an exception if the log file cannot be created.
+     * @throws CouldNotWriteResourceException if the log file cannot be created.
      */
     protected function rotate(): void
     {
@@ -87,7 +87,7 @@ class RotatingFileLogger extends FileLogger
     }
 
     /**
-     * @throws CouldNotWriteResourceException Throws an exception if the log file cannot be created.
+     * @throws CouldNotWriteResourceException if the log file cannot be created.
      */
     protected function moveLogToArchive(string $archivePath): void
     {

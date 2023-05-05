@@ -14,7 +14,7 @@ class FileLogger extends AbstractLogger
 
     /**
      * @param int $permissions The permissions to set on the log file. Defaults to 0644.
-     * @throws CouldNotCreateResourceException Throws an exception if the log file cannot be found nor created.
+     * @throws CouldNotCreateResourceException if the log file cannot be found nor created.
      */
     public function __construct(string $logFile, int $permissions = 0644)
     {
@@ -26,7 +26,7 @@ class FileLogger extends AbstractLogger
     }
 
     /**
-     * @throws CouldNotWriteResourceException Throws an exception if the log file cannot be written to.
+     * @throws CouldNotWriteResourceException if the log file cannot be written to.
      */
     public function log(mixed $level, string|Stringable $message, array $context = []): void
     {
