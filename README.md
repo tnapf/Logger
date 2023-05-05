@@ -11,6 +11,9 @@ Totally Not Another PHP Framework's Logger Component
     - [DatabaseLogger](#databaselogger)
     - [NullLogger](#nulllogger)
     - [CompositeLogger](#compositelogger)
+    - [MemoryLogger](#memorylogger)
+    - [RotatingFileLogger](#rotatingfilelogger)
+    - [RedisLogger](#redislogger)
 - [License](LICENSE)
 
 # Installation
