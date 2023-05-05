@@ -3,7 +3,6 @@
 namespace Tests\Tnapf\Logger;
 
 use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use Tnapf\Logger\Exceptions\CouldNotWriteResourceException;
@@ -12,11 +11,6 @@ use Tnapf\Logger\RotatingFileLogger;
 
 class RotatingFileLoggerTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        vfsStream::setup("logs");
-    }
-
     public function testLogRotationBySize()
     {
         $maxSizeBytes = 10;
@@ -91,5 +85,10 @@ class RotatingFileLoggerTest extends TestCase
         $this->expectException(CouldNotWriteResourceException::class);
         $this->expectExceptionMessage('Unable to create the log file');
         $rotate->invoke($logger);
+    }
+
+    protected function setUp(): void
+    {
+        vfsStream::setup("logs");
     }
 }
