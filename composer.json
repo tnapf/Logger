@@ -30,6 +30,7 @@
     "phpunit-coverage": "@php -d xdebug.mode=coverage ./vendor/bin/phpunit --coverage-html .phpunit.cache/cov-html"
   },
   "require": {
-    "php": ">=8.1"
+    "php": ">=8.1",
+    "psr/log": "^3.0"
   }
 }
