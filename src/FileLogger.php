@@ -36,7 +36,7 @@ class FileLogger extends AbstractLogger
         }
     }
 
-    protected function formatMessage(string $level, string $message, array $context): string
+    protected function formatMessage(string|Stringable $level, string $message, array $context): string
     {
         $dateTime = new DateTimeImmutable();
         $timestamp = $dateTime->format('Y-m-d H:i:s') . '.' . sprintf('%03d', $dateTime->format('v'));
